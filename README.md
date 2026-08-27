@@ -1,4 +1,4 @@
-UrbanWatch
+🛰️ UrbanWatch
 
 AI-Powered Multi-Task Remote Sensing Analysis
 
@@ -11,6 +11,8 @@ The project combines three complementary computer vision tasks:
 🌍 LoveDA — Land-Cover Semantic Segmentation using DeepLabV3 + ResNet18
 
 🔄 LEVIR-CD+ — Bi-temporal Change Detection using a Siamese deep learning model
+
+🎯 SAM 2 — Promptable segmentation and object refinement for satellite imagery
 
 🤖 Llama 3.2 — AI assistant for interpreting UrbanWatch results
 
@@ -25,15 +27,15 @@ UrbanWatch processes satellite imagery through multiple specialized AI models an
                     └──────────┬───────────┘
                                │
              ┌─────────────────┼─────────────────┐
-             │                 │                 │
-             ▼                 ▼                 ▼
-      ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
-      │ SpaceNet 2  │   │   LoveDA    │   │ LEVIR-CD+   │
-      │    YOLO     │   │ DeepLabV3   │   │   Siamese   │
-      │ Buildings   │   │ Land Cover  │   │   Changes   │
-      └──────┬──────┘   └──────┬──────┘   └──────┬──────┘
-             │                 │                 │
-             └─────────────────┼─────────────────┘
+             │                 │                 │                 │
+             ▼                 ▼                 ▼                 ▼
+      ┌─────────────┐   ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
+      │ SpaceNet 2  │   │   LoveDA    │   │ LEVIR-CD+   │   │    SAM 2    │
+      │    YOLO     │   │ DeepLabV3   │   │   Siamese   │   │  Promptable │
+      │ Buildings   │   │ Land Cover  │   │   Changes   │   │ Segmentation│
+      └──────┬──────┘   └──────┬──────┘   └──────┬──────┘   └──────┬──────┘
+             │                 │                 │                 │
+             └─────────────────┴─────────────────┴─────────────────┘
                                ▼
                     ┌──────────────────────┐
                     │ UrbanWatch Analysis  │
@@ -42,11 +44,9 @@ UrbanWatch processes satellite imagery through multiple specialized AI models an
                      ┌─────────┴─────────┐
                      ▼                   ▼
               Streamlit App        Llama AI Analyst
-              # 🛰️ UrbanWatch — Multi-Task Urban Intelligence System
+              UrbanWatch is an end-to-end **remote sensing and computer vision platform** that combines building detection, land-cover semantic segmentation, and satellite image change detection into a unified system.
 
-UrbanWatch is an end-to-end **remote sensing and computer vision platform** that combines building detection, land-cover semantic segmentation, and satellite image change detection into a unified system.
-
-It also includes a **local Llama 3.2 AI analyst** and an interactive **Streamlit application** for model inference, evaluation, visualization, and analysis.
+It also includes a **local Llama 3.2 AI analyst**, **SAM 2 promptable segmentation**, and an interactive **Streamlit application** for model inference, evaluation, visualization, and analysis.
 
 ---
 
@@ -144,16 +144,16 @@ The final model was evaluated on all **348 held-out test pairs**.
 
 **Model:** Segment Anything Model 2 (SAM 2)
 
-SAM 2 extends UrbanWatch with promptable, high-quality segmentation. It can be used to refine and inspect objects or regions identified in satellite imagery, providing a more flexible segmentation workflow alongside the project's task-specific trained models.
+SAM 2 extends UrbanWatch with promptable segmentation for selected satellite imagery. It complements the task-specific supervised models by allowing interactive segmentation and object-level refinement.
 
-The SAM 2 integration complements the existing SpaceNet 2, LoveDA, and LEVIR-CD+ pipelines rather than replacing them:
+The SAM 2 integration is used alongside:
 
-- **SpaceNet 2 / YOLOv8m** — trained building detection
-- **LoveDA / DeepLabV3-ResNet18** — trained land-cover semantic segmentation
-- **LEVIR-CD+ / Siamese network** — trained bi-temporal change detection
-- **SAM 2** — promptable segmentation and object-level refinement
+- 🏢 **SpaceNet 2 / YOLOv8m** — Building Detection
+- 🌍 **LoveDA / DeepLabV3 + ResNet18** — Land-Cover Semantic Segmentation
+- 🔄 **LEVIR-CD+ / Siamese Network** — Bi-temporal Change Detection
+- 🎯 **SAM 2** — Promptable Segmentation and Object Refinement
 
-SAM 2 is integrated into the UrbanWatch inference workflow for interactive segmentation of selected satellite imagery.
+SAM 2 is integrated into the UrbanWatch inference workflow and can be used to generate segmentation masks from prompts on selected satellite imagery.
 
 ---
 
@@ -166,7 +166,7 @@ The assistant is designed to answer questions about:
 * Model performance
 * Dataset statistics
 * Evaluation metrics
-* Differences between the three models
+* Differences between the three benchmark models and SAM 2
 * UrbanWatch pipeline architecture
 * Interpretation of results
 
@@ -184,6 +184,7 @@ These metrics measure different tasks and should not be
 treated as directly interchangeable.
 
 
+
 The Llama model runs locally through Ollama, so the AI assistant does not require a cloud API key.
 
 🖥️ Interactive Application
@@ -192,13 +193,13 @@ UrbanWatch includes a Streamlit application providing a unified interface for 
 
 The application brings together:
 
+🎯 SAM 2 promptable segmentation
+
 🏢 Building detection
 
 🌍 Land-cover segmentation
 
 🔄 Change detection
-
-🎯 SAM 2 promptable segmentation
 
 📊 Model results
 
@@ -220,7 +221,7 @@ DeepLabV3
 
 ResNet18
 
-SAM 2
+Segment Anything Model 2 (SAM 2)
 
 Computer Vision
 
@@ -296,6 +297,7 @@ UrbanWatch/
 └── README.md
 
 
+
 Large datasets, trained model weights, and generated results are intentionally excluded from the Git repository.
 
 ⚙️ Installation
@@ -356,6 +358,10 @@ DatasetTaskModelPrimary MetricResult
 
 
 
+
+
+
+
 SpaceNet 2
 
 Building Detection
@@ -386,11 +392,21 @@ IoU
 
 0.5610
 
-Note: These primary metrics belong to different computer vision tasks and therefore should not be interpreted as a direct ranking of the three models.
+SAM 2
+
+Promptable Segmentation
+
+SAM 2
+
+—
+
+Integrated
+
+Note: These metrics belong to different computer vision tasks and should not be interpreted as a direct ranking of the models. SAM 2 is included as an integrated promptable-segmentation capability rather than a benchmark result.
 
 ⚠️ Limitations
 
-The three datasets represent different remote sensing tasks and geographic distributions.
+The three benchmark datasets represent different remote sensing tasks and geographic distributions.
 
 Model metrics are task-specific and are not directly comparable across datasets.
 
