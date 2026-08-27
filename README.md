@@ -1,24 +1,25 @@
-# 🛰️ UrbanWatch
+UrbanWatch
 
-### AI-Powered Multi-Task Remote Sensing Analysis
+AI-Powered Multi-Task Remote Sensing Analysis
 
-UrbanWatch is an end-to-end remote sensing AI pipeline designed to analyze satellite imagery for **building detection, land-cover semantic segmentation, and temporal change detection**.
+UrbanWatch is an end-to-end remote sensing AI pipeline designed to analyze satellite imagery for building detection, land-cover semantic segmentation, and temporal change detection.
 
 The project combines three complementary computer vision tasks:
 
-- 🏢 **SpaceNet 2** — Building Detection using YOLO
-- 🌍 **LoveDA** — Land-Cover Semantic Segmentation using DeepLabV3 + ResNet18
-- 🔄 **LEVIR-CD+** — Bi-temporal Change Detection using a Siamese deep learning model
-- 🤖 **Llama 3.2** — AI assistant for interpreting UrbanWatch results
-- 🖥️ **Streamlit** — Interactive application interface
+🏢 SpaceNet 2 — Building Detection using YOLO
 
----
+🌍 LoveDA — Land-Cover Semantic Segmentation using DeepLabV3 + ResNet18
 
-## 🚀 Project Overview
+🔄 LEVIR-CD+ — Bi-temporal Change Detection using a Siamese deep learning model
+
+🤖 Llama 3.2 — AI assistant for interpreting UrbanWatch results
+
+🖥️ Streamlit — Interactive application interface
+
+🚀 Project Overview
 
 UrbanWatch processes satellite imagery through multiple specialized AI models and provides a unified framework for understanding urban environments.
 
-```text
                     ┌──────────────────────┐
                     │   Satellite Imagery  │
                     └──────────┬───────────┘
@@ -139,6 +140,23 @@ The final model was evaluated on all **348 held-out test pairs**.
 
 ---
 
+### 🎯 SAM 2 — Promptable Segmentation
+
+**Model:** Segment Anything Model 2 (SAM 2)
+
+SAM 2 extends UrbanWatch with promptable, high-quality segmentation. It can be used to refine and inspect objects or regions identified in satellite imagery, providing a more flexible segmentation workflow alongside the project's task-specific trained models.
+
+The SAM 2 integration complements the existing SpaceNet 2, LoveDA, and LEVIR-CD+ pipelines rather than replacing them:
+
+- **SpaceNet 2 / YOLOv8m** — trained building detection
+- **LoveDA / DeepLabV3-ResNet18** — trained land-cover semantic segmentation
+- **LEVIR-CD+ / Siamese network** — trained bi-temporal change detection
+- **SAM 2** — promptable segmentation and object-level refinement
+
+SAM 2 is integrated into the UrbanWatch inference workflow for interactive segmentation of selected satellite imagery.
+
+---
+
 ## 🤖 Llama AI Analyst
 
 UrbanWatch includes a local AI assistant powered by **Llama 3.2 through Ollama**.
@@ -164,71 +182,86 @@ reported mAP@50 at 0.8212, while LEVIR-CD+ achieved
 an IoU of 0.5610 and LoveDA achieved an mIoU of 0.5402.
 These metrics measure different tasks and should not be
 treated as directly interchangeable.
-```
 
-The Llama model runs **locally through Ollama**, so the AI assistant does not require a cloud API key.
 
----
+The Llama model runs locally through Ollama, so the AI assistant does not require a cloud API key.
 
-## 🖥️ Interactive Application
+🖥️ Interactive Application
 
-UrbanWatch includes a **Streamlit application** providing a unified interface for the project.
+UrbanWatch includes a Streamlit application providing a unified interface for the project.
 
 The application brings together:
 
-* 🏢 Building detection
-* 🌍 Land-cover segmentation
-* 🔄 Change detection
-* 📊 Model results
-* 🖼️ Visual inference outputs
-* 🤖 AI-assisted analysis
+🏢 Building detection
 
----
+🌍 Land-cover segmentation
 
-## 🧠 Technologies
+🔄 Change detection
 
-### Deep Learning
+🎯 SAM 2 promptable segmentation
 
-* PyTorch
-* Torchvision
-* Ultralytics YOLO
-* DeepLabV3
-* ResNet18
+📊 Model results
 
-### Computer Vision
+🖼️ Visual inference outputs
 
-* OpenCV
-* Pillow
-* NumPy
+🤖 AI-assisted analysis
 
-### Geospatial / Remote Sensing
+🧠 Technologies
 
-* GeoJSON
-* TIFF imagery
-* Satellite image preprocessing
-* Raster-based semantic segmentation
+Deep Learning
 
-### AI Assistant
+PyTorch
 
-* Llama 3.2
-* Ollama
+Torchvision
 
-### Application
+Ultralytics YOLO
 
-* Streamlit
+DeepLabV3
 
-### Development
+ResNet18
 
-* Python
-* Git
-* GitHub
-* VS Code
+SAM 2
 
----
+Computer Vision
 
-## 📁 Project Structure
+OpenCV
 
-```text
+Pillow
+
+NumPy
+
+Geospatial / Remote Sensing
+
+GeoJSON
+
+TIFF imagery
+
+Satellite image preprocessing
+
+Raster-based semantic segmentation
+
+AI Assistant
+
+Llama 3.2
+
+Ollama
+
+Application
+
+Streamlit
+
+Development
+
+Python
+
+Git
+
+GitHub
+
+VS Code
+
+📁 Project Structure
+
 UrbanWatch/
 │
 ├── 01_dataset_structure_analysis.ipynb
@@ -261,159 +294,188 @@ UrbanWatch/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
-```
 
-> Large datasets, trained model weights, and generated results are intentionally excluded from the Git repository.
 
----
+Large datasets, trained model weights, and generated results are intentionally excluded from the Git repository.
 
-## ⚙️ Installation
+⚙️ Installation
 
-### 1. Clone the repository
+1. Clone the repository
 
-```bash
 git clone https://github.com/Shreyas-g-m/UrbanWatch.git
 cd UrbanWatch
-```
 
-### 2. Create the Conda environment
+2. Create the Conda environment
 
-```bash
 conda create -n urbanwatch python=3.10
 conda activate urbanwatch
-```
 
-### 3. Install dependencies
+3. Install dependencies
 
-```bash
 pip install -r requirements.txt
-```
 
----
+🤖 Llama Setup
 
-## 🤖 Llama Setup
-
-Install **Ollama** from:
+Install Ollama from:
 
 https://ollama.com/
 
 Then download Llama 3.2:
 
-```bash
 ollama pull llama3.2
-```
 
 Test the installation:
 
-```bash
 ollama run llama3.2
-```
 
 The Python integration uses the Ollama Python package:
 
-```bash
 pip install ollama
-```
 
 Run the UrbanWatch AI assistant:
 
-```bash
 python 20_urbanwatch_llama.py
-```
 
----
-
-## 🖥️ Running the Application
+🖥️ Running the Application
 
 Start the Streamlit application:
 
-```bash
 streamlit run 19_urbanwatch_app.py
-```
 
 The application provides a unified interface for the UrbanWatch models.
 
----
+📈 Evaluation Summary
 
-## 📈 Evaluation Summary
+DatasetTaskModelPrimary MetricResult
 
-| Dataset    | Task                  | Model              | Primary Metric |     Result |
-| ---------- | --------------------- | ------------------ | -------------- | ---------: |
-| SpaceNet 2 | Building Detection    | YOLOv8m            | mAP@50         | **0.8212** |
-| LoveDA     | Semantic Segmentation | DeepLabV3-ResNet18 | mIoU           | **0.5402** |
-| LEVIR-CD+  | Change Detection      | Siamese Network    | IoU            | **0.5610** |
 
-> **Note:** These primary metrics belong to different computer vision tasks and therefore should **not** be interpreted as a direct ranking of the three models.
 
----
 
-## ⚠️ Limitations
 
-* The three datasets represent different remote sensing tasks and geographic distributions.
-* Model metrics are task-specific and are not directly comparable across datasets.
-* LoveDA segmentation performance varies substantially between classes.
-* Pixel accuracy can be inflated when background pixels dominate.
-* The current unified inference demonstration processes selected imagery rather than representing a production-scale deployment.
-* The models are research prototypes and should not be treated as operational geospatial decision systems without additional validation.
 
----
 
-## 🔬 Future Work
+
+
+SpaceNet 2
+
+Building Detection
+
+YOLOv8m
+
+mAP@50
+
+0.8212
+
+LoveDA
+
+Semantic Segmentation
+
+DeepLabV3-ResNet18
+
+mIoU
+
+0.5402
+
+LEVIR-CD+
+
+Change Detection
+
+Siamese Network
+
+IoU
+
+0.5610
+
+Note: These primary metrics belong to different computer vision tasks and therefore should not be interpreted as a direct ranking of the three models.
+
+⚠️ Limitations
+
+The three datasets represent different remote sensing tasks and geographic distributions.
+
+Model metrics are task-specific and are not directly comparable across datasets.
+
+LoveDA segmentation performance varies substantially between classes.
+
+Pixel accuracy can be inflated when background pixels dominate.
+
+The current unified inference demonstration processes selected imagery rather than representing a production-scale deployment.
+
+SAM 2 provides promptable segmentation but does not replace the task-specific supervised models used for benchmark evaluation.
+
+The models are research prototypes and should not be treated as operational geospatial decision systems without additional validation.
+
+🔬 Future Work
 
 Potential improvements include:
 
-* Stronger segmentation architectures
-* Higher-resolution inference
-* Improved small-object detection
-* Multi-scale satellite image processing
-* Better change-detection architectures
-* Cross-dataset domain adaptation
-* GIS integration
-* Interactive map visualization
-* Larger-scale inference
-* Cloud deployment
-* Improved Llama-based geospatial reasoning
-* Automated report generation
+Stronger segmentation architectures
 
----
+Higher-resolution inference
 
-## 👨‍💻 Author
+Improved small-object detection
 
-**Shreyas Gouda M**
+Multi-scale satellite image processing
 
-BMS College of Engineering
-Computer Science and Engineering
+Better change-detection architectures
 
-GitHub:
-https://github.com/Shreyas-g-m
+Cross-dataset domain adaptation
 
----
+GIS integration
 
-## 📜 Project Status
+Interactive map visualization
 
-### UrbanWatch — Core Pipeline Complete
+Larger-scale inference
 
-* ✅ SpaceNet 2 preprocessing
-* ✅ YOLO building detection
-* ✅ YOLO evaluation
-* ✅ LEVIR-CD+ preprocessing
-* ✅ Change detection training
-* ✅ LEVIR-CD+ test evaluation
-* ✅ LoveDA preprocessing
-* ✅ Semantic segmentation training
-* ✅ LoveDA evaluation
-* ✅ Unified inference
-* ✅ Final evaluation report
-* ✅ Streamlit application
-* ✅ Local Llama AI assistant
-* ✅ GitHub repository preparation
+Cloud deployment
 
----
+Improved Llama-based geospatial reasoning
 
-## 📌 Disclaimer
+Automated report generation
+
+👨‍💻 Author
+
+Shreyas Gouda M
+
+BMS College of Engineering Computer Science and Engineering
+
+GitHub: https://github.com/Shreyas-g-m
+
+📜 Project Status
+
+UrbanWatch — Core Pipeline Complete
+
+✅ SpaceNet 2 preprocessing
+
+✅ YOLO building detection
+
+✅ YOLO evaluation
+
+✅ LEVIR-CD+ preprocessing
+
+✅ Change detection training
+
+✅ LEVIR-CD+ test evaluation
+
+✅ LoveDA preprocessing
+
+✅ Semantic segmentation training
+
+✅ LoveDA evaluation
+
+✅ Unified inference
+
+✅ SAM 2 integration
+
+✅ Final evaluation report
+
+✅ Streamlit application
+
+✅ Local Llama AI assistant
+
+✅ GitHub repository preparation
+
+📌 Disclaimer
 
 UrbanWatch is a research and educational computer vision project demonstrating multiple remote sensing workflows. The reported results are specific to the datasets, preprocessing pipelines, training configurations, and evaluation procedures used in this project.
 
 The system should not be considered a production-ready geospatial decision-making system without additional validation on real-world data.
-
-
